@@ -104,5 +104,23 @@ public class ProblemController {
 		problemService.deleteById(id);
 		return new Result(true,StatusCode.OK,"删除成功");
 	}
+
+	@RequestMapping(value = "/search/newList/{labelId}/{page}/{pageSize}",method = RequestMethod.GET)
+	public Result newList(@PathVariable String labelId,@PathVariable int page,@PathVariable int pageSize){
+		Page<Problem> problemPage = problemService.newList(labelId, page, pageSize);
+		return new Result(true,StatusCode.OK,"查询成功",new PageResult<Problem>(problemPage.getTotalElements(), problemPage.getContent()));
+	}
+
+	@RequestMapping(value = "/search/hotList/{labelId}/{page}/{pageSize}",method = RequestMethod.GET)
+	public Result hotList(@PathVariable String labelId,@PathVariable int page,@PathVariable int pageSize){
+		Page<Problem> problemPage = problemService.hotList(labelId, page, pageSize);
+		return new Result(true,StatusCode.OK,"查询成功",new PageResult<Problem>(problemPage.getTotalElements(), problemPage.getContent()));
+	}
+
+	@RequestMapping(value = "/search/waitList/{labelId}/{page}/{pageSize}",method = RequestMethod.GET)
+	public Result waitList(@PathVariable String labelId,@PathVariable int page,@PathVariable int pageSize){
+		Page<Problem> problemPage = problemService.waitList(labelId, page, pageSize);
+		return new Result(true,StatusCode.OK,"查询成功",new PageResult<Problem>(problemPage.getTotalElements(), problemPage.getContent()));
+	}
 	
 }

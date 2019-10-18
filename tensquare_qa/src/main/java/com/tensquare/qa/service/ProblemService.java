@@ -15,6 +15,7 @@ import javax.persistence.criteria.Selection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
@@ -152,6 +153,21 @@ public class ProblemService {
 			}
 		};
 
+	}
+
+	public Page<Problem> newList(String labelId, int page,int pageSize){
+		Pageable pageable=PageRequest.of(page-1,pageSize);
+		 return problemDao.newList(labelId,pageable);
+	}
+
+	public Page<Problem> hotList(String labelId, int page,int pageSize){
+		Pageable pageable=PageRequest.of(page-1,pageSize);
+		return problemDao.hotList(labelId,pageable);
+	}
+
+	public Page<Problem> waitList(String labelId, int page,int pageSize){
+		Pageable pageable=PageRequest.of(page-1,pageSize);
+		return problemDao.waitList(labelId,pageable);
 	}
 
 }
